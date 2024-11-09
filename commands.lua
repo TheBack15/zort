@@ -1,10 +1,10 @@
+print("it works!")
 local activeBillboards = {}
 local highest = 0
 local p = game:GetService("Players").LocalPlayer
 local tweenService = game:GetService("TweenService")
 local join = game:GetService("Players").PlayerAdded
 local leave = game:GetService("Players").PlayerRemoving
-local friendService = game:GetService("FriendService")
 if join then
 	join:Connect(function(player)
 		local bill = Instance.new("BillboardGui", p.Character.Head)
@@ -19,7 +19,38 @@ if join then
 		bill.AlwaysOnTop = true
 		bill.Adornee = p.Character.Head
 		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
-
+		
+		player.CharacterAdded:Connect(function()
+			player.Character:WaitForChild("HumanoidRootPart")
+			local part = Instance.new("Part", workspace)
+			part.Size = Vector3.new(4,4,4)
+			part.Shape = Enum.PartType.Ball
+			part.TopSurface = Enum.SurfaceType.Smooth
+			part.BottomSurface = Enum.SurfaceType.Smooth
+			part.Anchored = true
+			part.Material = Enum.Material.Neon
+			part.CanCollide = false
+			part.CastShadow = false
+			local function updatePart()
+				while task.wait() do
+					if player.Character:WaitForChild("HumanoidRootPart") then
+						part.Size = part.Size + Vector3.new(0.5,0.5,0.5)
+						part.Transparency = part.Transparency + 0.01
+						part.Position = Vector3.new(player.Character:WaitForChild("HumanoidRootPart").Position.X, player.Character:WaitForChild("HumanoidRootPart").Position.Y, player.Character:WaitForChild("HumanoidRootPart").Position.Z)
+						part.Color = player.Character:WaitForChild("Body Colors").TorsoColor3
+						if part.Transparency > 1 then
+							part:Destroy()
+							break
+						end
+					else
+						part:Destroy()
+						break
+					end
+				end
+			end
+			task.defer(updatePart)
+		end)
+		
 		image.BackgroundTransparency = 1
 		image.Position = UDim2.fromScale(0.105,0.5)
 		image.AnchorPoint = Vector2.new(0.5,0.5)
@@ -34,17 +65,17 @@ if join then
 		local gradient = Instance.new("UIGradient", text) 
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
-		
+
 		local strokeIM = Instance.new("UIStroke", image)
 		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
 		strokeIM.Thickness = 2
-		
+
 		Instance.new("UIStroke", text2).Thickness = 3
 		local gradient2 = Instance.new("UIGradient", text2)
 		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient2.Rotation = 90
-		
+
 		text.BackgroundTransparency = 1
 		text.AnchorPoint = Vector2.new(1,1)
 		text.Position = UDim2.fromScale(1,1)
@@ -52,7 +83,7 @@ if join then
 		text.Font = Enum.Font.Arimo
 		text.TextColor3 = Color3.fromRGB(255,255,255)
 		text.TextScaled = true
-		
+
 		text2.BackgroundTransparency = 1
 		text2.AnchorPoint = Vector2.new(0.5,0)
 		text2.Position = UDim2.fromScale(0.5,0)
@@ -107,18 +138,18 @@ if leave then
 
 		local stroke = Instance.new("UIStroke", text)
 		stroke.Thickness = 3
-		
+
 		local strokeIM = Instance.new("UIStroke", image)
 		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
 		strokeIM.Thickness = 2
-		
+
 		local gradient = Instance.new("UIGradient", text)
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
-		
+
 		Instance.new("UIStroke", text2).Thickness = 3
-		
+
 		local gradient2 = Instance.new("UIGradient", text2)
 		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient2.Rotation = 90
@@ -130,7 +161,7 @@ if leave then
 		text.Font = Enum.Font.Arimo
 		text.TextColor3 = Color3.fromRGB(255,255,255)
 		text.TextScaled = true
-		
+
 		text2.BackgroundTransparency = 1
 		text2.AnchorPoint = Vector2.new(0.5,0)
 		text2.Position = UDim2.fromScale(0.5,0)
