@@ -8,6 +8,7 @@ if join then
 	join:Connect(function(player)
 		local bill = Instance.new("BillboardGui", p.Character.Head)
 		local text = Instance.new("TextLabel", bill)
+		local text2 = Instance.new("TextLabel", bill)
 		local image = Instance.new("ImageLabel", bill)
 		activeBillboards[p.Name] = activeBillboards[p.Name] or {}
 
@@ -19,35 +20,46 @@ if join then
 		bill.Adornee = p.Character.Head
 
 		image.BackgroundTransparency = 1
-		image.Position = UDim2.fromScale(0,0.5)
-		image.AnchorPoint = Vector2.new(0,0.5)
-		image.Size = UDim2.fromScale(0.166,1)
+		image.Position = UDim2.fromScale(0,1)
+		image.AnchorPoint = Vector2.new(0,1)
+		image.Size = UDim2.fromScale(0.208,1)
 		image.Image = game:GetService("Players"):GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 
 		table.insert(activeBillboards[p.Name], bill)
 
-		local stroke = Instance.new("UIStroke", text)
-		local gradient = Instance.new("UIGradient", text)
-
+		Instance.new("UIStroke", text).Thickness = 3
+		local gradient = Instance.new("UIGradient", text) 
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
-
-		stroke.Thickness = 3
-
+		
+		Instance.new("UIStroke", text2).Thickness = 3
+		local gradient2 = Instance.new("UIGradient", text2)
+		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
+		gradient2.Rotation = 90
+		
 		text.BackgroundTransparency = 1
-		text.AnchorPoint = Vector2.new(1,0.5)
-		text.Position = UDim2.fromScale(1,0.5)
-		text.Size = UDim2.fromScale(0.824,1)
+		text.AnchorPoint = Vector2.new(1,1)
+		text.Position = UDim2.fromScale(1,1)
+		text.Size = UDim2.fromScale(0.7915,0.749)
 		text.Font = Enum.Font.Arimo
 		text.TextColor3 = Color3.fromRGB(255,255,255)
 		text.TextScaled = true
+		
+		text2.BackgroundTransparency = 1
+		text2.AnchorPoint = Vector2.new(0.5,0)
+		text2.Position = UDim2.fromScale(0.5,0)
+		text2.Size = UDim2.fromScale(0.5,0.25)
+		text2.Font = Enum.Font.Arimo
+		text2.TextColor3 = Color3.fromRGB(255,255,255)
+		text2.TextScaled = true
+		text2.Text = player.DisplayName .. " (" .. "@" .. player.Name .. ")"
 
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
 
 		local tweenStart = TweenInfo.new(3,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
-		local properties1 = {Size = UDim2.fromScale(6,1)}
+		local properties1 = {Size = UDim2.fromScale(6,1.25)}
 		tweenService:Create(bill,tweenStart, properties1):Play()
 
 		wait(5)
@@ -65,6 +77,7 @@ if leave then
 	leave:Connect(function(player)
 		local bill = Instance.new("BillboardGui", p.Character.Head)
 		local text = Instance.new("TextLabel", bill)
+		local text2 = Instance.new("TextLabel", bill)
 		local image = Instance.new("ImageLabel", bill)
 		activeBillboards[p.Name] = activeBillboards[p.Name] or {}
 
@@ -76,35 +89,48 @@ if leave then
 		bill.Adornee = p.Character.Head
 
 		image.BackgroundTransparency = 1
-		image.Position = UDim2.fromScale(0,0.5)
-		image.AnchorPoint = Vector2.new(0,0.5)
-		image.Size = UDim2.fromScale(0.166,1)
+		image.Position = UDim2.fromScale(0,1)
+		image.AnchorPoint = Vector2.new(0,1)
+		image.Size = UDim2.fromScale(0.208,1)
 		image.Image = game:GetService("Players"):GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 
 		table.insert(activeBillboards[p.Name], bill)
 
-		local stroke = Instance.new("UIStroke", text)
+		Instance.new("UIStroke", text).Thickness = 3
 		local gradient = Instance.new("UIGradient", text)
 
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
+		
+		Instance.new("UIStroke", text2).Thickness = 3
+		local gradient = Instance.new("UIGradient", text2)
 
-		stroke.Thickness = 3
+		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
+		gradient.Rotation = 90
 
 		text.BackgroundTransparency = 1
-		text.AnchorPoint = Vector2.new(1,0.5)
-		text.Position = UDim2.fromScale(1,0.5)
-		text.Size = UDim2.fromScale(0.824,1)
+		text.AnchorPoint = Vector2.new(1,1)
+		text.Position = UDim2.fromScale(1,1)
+		text.Size = UDim2.fromScale(0.7915,0.749)
 		text.Font = Enum.Font.Arimo
 		text.TextColor3 = Color3.fromRGB(255,255,255)
 		text.TextScaled = true
+		
+		text2.BackgroundTransparency = 1
+		text2.AnchorPoint = Vector2.new(0.5,0)
+		text2.Position = UDim2.fromScale(0.5,0)
+		text2.Size = UDim2.fromScale(0.5,0.25)
+		text2.Font = Enum.Font.Arimo
+		text2.TextColor3 = Color3.fromRGB(255,255,255)
+		text2.TextScaled = true
+		text2.Text = player.DisplayName .. " (" .. "@" .. player.Name .. ")"
 
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
 
 		local tweenStart = TweenInfo.new(3,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
-		local properties1 = {Size = UDim2.fromScale(6,1)}
+		local properties1 = {Size = UDim2.fromScale(6,1.25)}
 		tweenService:Create(bill,tweenStart, properties1):Play()
 
 		wait(5)
@@ -123,7 +149,7 @@ while true do
 	wait(0.25)
 	if activeBillboards then
 		for index, gui in ipairs(activeBillboards[p.Name]) do
-			gui.StudsOffset = Vector3.new(0, 1.5 + index - 1, 0)
+			gui.StudsOffset = Vector3.new(0,1.5 + (index * 1.5) - 1, 0)
 		end
 	end
 end
