@@ -20,37 +20,6 @@ if join then
 		bill.Adornee = p.Character.Head
 		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
 		
-		player.CharacterAdded:Connect(function()
-			player.Character:WaitForChild("HumanoidRootPart")
-			local part = Instance.new("Part", workspace)
-			part.Size = Vector3.new(4,4,4)
-			part.Shape = Enum.PartType.Ball
-			part.TopSurface = Enum.SurfaceType.Smooth
-			part.BottomSurface = Enum.SurfaceType.Smooth
-			part.Anchored = true
-			part.Material = Enum.Material.Neon
-			part.CanCollide = false
-			part.CastShadow = false
-			local function updatePart()
-				while task.wait() do
-					if player.Character:WaitForChild("HumanoidRootPart") then
-						part.Size = part.Size + Vector3.new(0.5,0.5,0.5)
-						part.Transparency = part.Transparency + 0.01
-						part.Position = Vector3.new(player.Character:WaitForChild("HumanoidRootPart").Position.X, player.Character:WaitForChild("HumanoidRootPart").Position.Y, player.Character:WaitForChild("HumanoidRootPart").Position.Z)
-						part.Color = player.Character:WaitForChild("Body Colors").TorsoColor3
-						if part.Transparency > 1 then
-							part:Destroy()
-							break
-						end
-					else
-						part:Destroy()
-						break
-					end
-				end
-			end
-			task.defer(updatePart)
-		end)
-		
 		image.BackgroundTransparency = 1
 		image.Position = UDim2.fromScale(0.105,0.5)
 		image.AnchorPoint = Vector2.new(0.5,0.5)
