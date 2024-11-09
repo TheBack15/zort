@@ -15,7 +15,6 @@ if join then
 		local offsetCount = #activeBillboards[p.Name]
 
 		bill.Size = UDim2.fromScale(0,0)
-		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
 		bill.AlwaysOnTop = true
 		bill.Adornee = p.Character.Head
 
@@ -84,7 +83,6 @@ if leave then
 		local offsetCount = #activeBillboards[p.Name]
 
 		bill.Size = UDim2.fromScale(0,0)
-		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
 		bill.AlwaysOnTop = true
 		bill.Adornee = p.Character.Head
 
@@ -146,7 +144,7 @@ if leave then
 end
 activeBillboards[p.Name] = activeBillboards[p.Name] or {}
 while true do
-	wait(0.25)
+	wait(0.1)
 	if activeBillboards then
 		for index, gui in ipairs(activeBillboards[p.Name]) do
 			gui.StudsOffset = Vector3.new(0,1.5 + (index * 1.5) - 1, 0)
