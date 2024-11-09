@@ -4,6 +4,7 @@ local p = game:GetService("Players").LocalPlayer
 local tweenService = game:GetService("TweenService")
 local join = game:GetService("Players").PlayerAdded
 local leave = game:GetService("Players").PlayerRemoving
+local friendService = game:GetService("FriendService")
 if join then
 	join:Connect(function(player)
 		local bill = Instance.new("BillboardGui", p.Character.Head)
@@ -17,19 +18,27 @@ if join then
 		bill.Size = UDim2.fromScale(0,0)
 		bill.AlwaysOnTop = true
 		bill.Adornee = p.Character.Head
+		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
 
 		image.BackgroundTransparency = 1
-		image.Position = UDim2.fromScale(0,1)
-		image.AnchorPoint = Vector2.new(0,1)
-		image.Size = UDim2.fromScale(0.208,1)
+		image.Position = UDim2.fromScale(0.105,0.5)
+		image.AnchorPoint = Vector2.new(0.5,0.5)
+		image.Size = UDim2.fromScale(0.187,0.898)
 		image.Image = game:GetService("Players"):GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+		image.ScaleType = Enum.ScaleType.Fit
 
 		table.insert(activeBillboards[p.Name], bill)
 
-		Instance.new("UIStroke", text).Thickness = 3
+		local stroke = Instance.new("UIStroke", text)
+		stroke.Thickness = 3
 		local gradient = Instance.new("UIGradient", text) 
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
+		
+		local strokeIM = Instance.new("UIStroke", image)
+		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
+		strokeIM.Thickness = 2
 		
 		Instance.new("UIStroke", text2).Thickness = 3
 		local gradient2 = Instance.new("UIGradient", text2)
@@ -85,26 +94,34 @@ if leave then
 		bill.Size = UDim2.fromScale(0,0)
 		bill.AlwaysOnTop = true
 		bill.Adornee = p.Character.Head
+		bill.StudsOffset = Vector3.new(0,1.5 + offsetCount,0)
 
 		image.BackgroundTransparency = 1
-		image.Position = UDim2.fromScale(0,1)
-		image.AnchorPoint = Vector2.new(0,1)
-		image.Size = UDim2.fromScale(0.208,1)
+		image.Position = UDim2.fromScale(0.105,0.5)
+		image.AnchorPoint = Vector2.new(0.5,0.5)
+		image.Size = UDim2.fromScale(0.187,0.898)
 		image.Image = game:GetService("Players"):GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+		image.ScaleType = Enum.ScaleType.Fit
 
 		table.insert(activeBillboards[p.Name], bill)
 
-		Instance.new("UIStroke", text).Thickness = 3
+		local stroke = Instance.new("UIStroke", text)
+		stroke.Thickness = 3
+		
+		local strokeIM = Instance.new("UIStroke", image)
+		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
+		strokeIM.Thickness = 2
+		
 		local gradient = Instance.new("UIGradient", text)
-
 		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient.Rotation = 90
 		
 		Instance.new("UIStroke", text2).Thickness = 3
-		local gradient = Instance.new("UIGradient", text2)
-
-		gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
-		gradient.Rotation = 90
+		
+		local gradient2 = Instance.new("UIGradient", text2)
+		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
+		gradient2.Rotation = 90
 
 		text.BackgroundTransparency = 1
 		text.AnchorPoint = Vector2.new(1,1)
@@ -147,7 +164,9 @@ while true do
 	wait(0.1)
 	if activeBillboards then
 		for index, gui in ipairs(activeBillboards[p.Name]) do
-			gui.StudsOffset = Vector3.new(0,1.5 + (index * 1.5) - 1, 0)
+			local scroll = TweenInfo.new(3,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
+			local propertiesSC = {StudsOffset = Vector3.new(0,0.5 + (index * 1.25), 0)}
+			tweenService:Create(gui,scroll,propertiesSC):Play()
 		end
 	end
 end
