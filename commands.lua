@@ -196,24 +196,19 @@ if leave then
 				age = age - 365
 				years = years + 1
 			else
-				print("years done!")
 				if age > 30 then
 					age = age - 30
 					months = months + 1
 				else
-					print("months done!")
 					if age > 1 then
 						age = age - 1
 						days = days + 1
-					else
-						print("days done!")
-						text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
 					end
 				end
 			end
 		until age < 1
+		text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
 		
-
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
