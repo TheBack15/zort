@@ -254,7 +254,7 @@ if leave then
 			local timeString = clocktoHMS()
 			text4.Text = timeString
 		else
-			text4.Text = "This player was joined to the server before this user did."
+			text4.Text = "N/A"
 		end
 
 		local rand = 100 / (math.random()*100)
