@@ -1,4 +1,4 @@
-print("The command is working!")
+print("it works!")
 local activeBillboards = {}
 local highest = 0
 local p = game:GetService("Players").LocalPlayer
@@ -74,27 +74,17 @@ if join then
 		text3.Font = Enum.Font.Arimo
 		text3.TextScaled = true
 		text3.TextColor3 = Color3.fromRGB(255,255,255)
-		local age = player.AccountAge
-		local years = 0
-		local months = 0
-		local days = 0
-		repeat
-			if age >= 365 then
-				age = age - 365
-				years = years + 1
-			else
-				if age >= 30 then
-					age = age - 30
-					months = months + 1
-				else
-					if age >= 1 then
-						age = age - 1
-						days = days + 1
-					end
-				end
-			end
-		until age < 1
-		text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
+		local function daysToYMD(days)
+			local years = math.floor(days / 365)
+			days = days % 365
+			local months = math.floor(days / 30)
+			local remainingDays = days % 30
+
+			return string.format("%dy %dm %dd", years, months, remainingDays)
+		end
+		local accountAge = player.AccountAge
+		local ageString = daysToYMD(accountAge)
+		text3.Text = ageString
 		
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
@@ -186,28 +176,18 @@ if leave then
 		text3.Font = Enum.Font.Arimo
 		text3.TextColor3 = Color3.fromRGB(255,255,255)
 		text3.TextScaled = true
-		local age = player.AccountAge
-		local years = 0
-		local months = 0
-		local days = 0
-		repeat
-			if age > 365 then
-				age = age - 365
-				years = years + 1
-			else
-				if age > 30 then
-					age = age - 30
-					months = months + 1
-				else
-					if age > 1 then
-						age = age - 1
-						days = days + 1
-					end
-				end
-			end
-		until age < 1
-		text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
-		
+		local function daysToYMD(days)
+			local years = math.floor(days / 365)
+			days = days % 365
+			local months = math.floor(days / 30)
+			local remainingDays = days % 30
+
+			return string.format("%dy %dm %dd", years, months, remainingDays)
+		end
+		local accountAge = player.AccountAge
+		local ageString = daysToYMD(accountAge)
+		text3.Text = ageString
+
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
