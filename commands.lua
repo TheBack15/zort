@@ -247,7 +247,7 @@ if leave then
 				local hours = math.floor(seconds / 3600)
 				seconds = seconds % 3600
 				local minutes = math.floor(seconds / 60)
-				local remainingSeconds = seconds % 30
+				local remainingSeconds = seconds % 60
 
 				return string.format("%dh %dm %ds", hours, minutes, remainingSeconds)
 			end
