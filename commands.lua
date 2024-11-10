@@ -1,4 +1,4 @@
-print("it works!")
+print("The command is working!")
 local activeBillboards = {}
 local highest = 0
 local p = game:GetService("Players").LocalPlayer
@@ -11,6 +11,7 @@ if join then
 		local text = Instance.new("TextLabel", bill)
 		local text2 = Instance.new("TextLabel", bill)
 		local image = Instance.new("ImageLabel", bill)
+		local text3 = Instance.new("TextLabel", image)
 		activeBillboards[p.Name] = activeBillboards[p.Name] or {}
 
 		local offsetCount = #activeBillboards[p.Name]
@@ -37,13 +38,17 @@ if join then
 
 		local strokeIM = Instance.new("UIStroke", image)
 		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
 		strokeIM.Thickness = 2
 
 		Instance.new("UIStroke", text2).Thickness = 3
 		local gradient2 = Instance.new("UIGradient", text2)
 		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient2.Rotation = 90
+		
+		Instance.new("UIStroke", text3).Thickness = 3
+		local gradient3 = Instance.new("UIGradient", text3)
+		gradient3.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(108, 255, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
+		gradient3.Rotation = 90
 
 		text.BackgroundTransparency = 1
 		text.AnchorPoint = Vector2.new(1,1)
@@ -61,7 +66,36 @@ if join then
 		text2.TextColor3 = Color3.fromRGB(255,255,255)
 		text2.TextScaled = true
 		text2.Text = player.DisplayName .. " (" .. "@" .. player.Name .. ")"
-
+		
+		
+		text3.BackgroundTransparency = 1
+		text3.Position = UDim2.fromScale(0,0)
+		text3.Size = UDim2.fromScale(1,0.125)
+		text3.Font = Enum.Font.Arimo
+		text3.TextScaled = true
+		text3.TextColor3 = Color3.fromRGB(255,255,255)
+		local age = player.AccountAge
+		local years = 0
+		local months = 0
+		local days = 0
+		repeat
+			if age >= 365 then
+				age = age - 365
+				years = years + 1
+			else
+				if age >= 30 then
+					age = age - 30
+					months = months + 1
+				else
+					if age >= 1 then
+						age = age - 1
+						days = days + 1
+					end
+				end
+			end
+		until age < 1
+		text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
+		
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
@@ -87,6 +121,7 @@ if leave then
 		local text = Instance.new("TextLabel", bill)
 		local text2 = Instance.new("TextLabel", bill)
 		local image = Instance.new("ImageLabel", bill)
+		local text3 = Instance.new("TextLabel", image)
 		activeBillboards[p.Name] = activeBillboards[p.Name] or {}
 
 		local offsetCount = #activeBillboards[p.Name]
@@ -110,7 +145,6 @@ if leave then
 
 		local strokeIM = Instance.new("UIStroke", image)
 		strokeIM.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		strokeIM.Color = Color3.fromRGB(player.AccountAge * (255/6644),0,0)
 		strokeIM.Thickness = 2
 
 		local gradient = Instance.new("UIGradient", text)
@@ -122,6 +156,12 @@ if leave then
 		local gradient2 = Instance.new("UIGradient", text2)
 		gradient2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
 		gradient2.Rotation = 90
+		
+		Instance.new("UIStroke", text3).Thickness = 2
+		
+		local gradient3 = Instance.new("UIGradient", text3)
+		gradient3.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(0.3, Color3.fromRGB(255, 108, 108)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0))}
+		gradient3.Rotation = 90
 
 		text.BackgroundTransparency = 1
 		text.AnchorPoint = Vector2.new(1,1)
@@ -139,6 +179,40 @@ if leave then
 		text2.TextColor3 = Color3.fromRGB(255,255,255)
 		text2.TextScaled = true
 		text2.Text = player.DisplayName .. " (" .. "@" .. player.Name .. ")"
+		
+		text3.BackgroundTransparency = 1
+		text3.Position = UDim2.fromScale(0,0)
+		text3.Size = UDim2.fromScale(1,0.125)
+		text3.Font = Enum.Font.Arimo
+		text3.TextColor3 = Color3.fromRGB(255,255,255)
+		text3.TextScaled = true
+		local age = player.AccountAge
+		local years = 0
+		local months = 0
+		local days = 0
+		repeat
+			task.wait()
+			if age > 365 then
+				age = age - 365
+				years = years + 1
+			else
+				print("years done!")
+				if age > 30 then
+					age = age - 30
+					months = months + 1
+				else
+					print("months done!")
+					if age > 1 then
+						age = age - 1
+						days = days + 1
+					else
+						print("days done!")
+						text3.Text = years .. "y" .. " " .. months .. "m" .. " " .. days .. "d"
+					end
+				end
+			end
+		until age < 1
+		
 
 		local rand = 100 / (math.random()*100)
 		rand = string.format("%.3f", rand)
@@ -164,7 +238,7 @@ while true do
 	wait(0.1)
 	if activeBillboards then
 		for index, gui in ipairs(activeBillboards[p.Name]) do
-			local scroll = TweenInfo.new(3,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
+			local scroll = TweenInfo.new(5,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
 			local propertiesSC = {StudsOffset = Vector3.new(0,0.5 + (index * 1.25), 0)}
 			tweenService:Create(gui,scroll,propertiesSC):Play()
 		end
