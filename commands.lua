@@ -191,7 +191,6 @@ if leave then
 		local months = 0
 		local days = 0
 		repeat
-			task.wait()
 			if age > 365 then
 				age = age - 365
 				years = years + 1
