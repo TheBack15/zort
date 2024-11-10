@@ -127,6 +127,7 @@ if join then
 		end
 		rand = string.format("%.3f", rand)
 		text.Text = "1 in " .. rand
+		
 		local tweenStart = TweenInfo.new(3,Enum.EasingStyle.Elastic,Enum.EasingDirection.Out)
 		local properties1 = {Size = UDim2.fromScale(6,1.25)}
 		tweenService:Create(bill,tweenStart, properties1):Play()
@@ -242,6 +243,16 @@ if leave then
 
 		if timeSpent then
 			local seconds = os.clock() - timeSpent
+			local function clocktoHMS()
+				local hours = math.floor(seconds / 3600)
+				seconds = seconds % 3600
+				local minutes = math.floor(seconds / 60)
+				local remainingSeconds = seconds % 30
+
+				return string.format("%dh %dm %ds", hours, minutes, remainingSeconds)
+			end
+			local timeString = clocktoHMS()
+			text4.Text = timeString
 		else
 			text4.Text = "This player was joined to the server before this user did."
 		end
